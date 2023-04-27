@@ -2,8 +2,8 @@ library(data.table)
 library(ggplot2)
 library(rnaturalearth)
 library(dplyr)
-source("R/00_setup.R00_setup.R")
-
+source("R/00_setup.R")
+source("R/01_cleanCoords_CetraliAmericana.R")
 # read in data
 df <- data.table::fread("data/BiologiaCentraliAmericanaGeoreferencedSpecies.csv")
 
@@ -12,7 +12,6 @@ df <- df %>%
   rename(scientificName = Species,
          decimalLongitude = Longitude,
          decimalLatitude = Latitude,
-         Year = Year,
          Locality = Locality
   ) %>% 
   select(scientificName, 
@@ -22,7 +21,7 @@ df <- df %>%
 
 
 ## combine into not cleaned occs data frame
-nco <- afro %>% 
+nco <- df %>% 
   filter(!is.na(decimalLongitude)) %>% 
   filter(!is.na(decimalLatitude))
 
@@ -45,13 +44,3 @@ for(i in 1:length(spp_list)) {
 }
 
 
-# what species have we done already?
-completed <- list.files(path = "AustroAsiaProject/bin/phil_coords/", pattern = ".png")
-completed <- completed %>% 
-  str_remove(".png") %>% 
-  str_replace(pattern = "_", replacement = " ")
-
-spp_list <- data.frame(spp = spp_list) %>% 
-  filter(!spp_list %in% completed)
-
-spp_list <-  spp_list$spp

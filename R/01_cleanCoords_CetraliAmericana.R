@@ -33,7 +33,7 @@ map_coord_clean <- function(dataframe, spp){
     dplyr::filter(value == FALSE | name == ".gbf")
   
   bw <- str_replace(spp, " ", "_")
-  write.csv(x = cs2, file = file.path(wd$phil_coords, paste0(bw, ".csv")))
+  write.csv(x = cs2, file = file.path(wd$CC, paste0(bw, ".csv")))
   
   lonRange <- (max(cs$decimalLongitude)- min(cs$decimalLongitude))/10
   latRange <- (max(cs$decimalLatitude)- min(cs$decimalLatitude))/10
@@ -76,7 +76,7 @@ map_coord_clean <- function(dataframe, spp){
   cp <- ggarrange(a, b, ggtexttable(mytab, rows = NULL),  nrow = 3, ncol = 1, heights = c(2,2,1))
   
   ggsave(plot = cp, 
-         filename = file.path(wd$phil_coords, paste0(bw, ".png")),
+         filename = file.path(wd$ccFigs, paste0(bw, ".png")),
          width = 4, height = 8)
 }
 

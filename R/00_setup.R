@@ -3,7 +3,7 @@ library(dplyr)
 library(terra)
 library(ggplot2)
 
-my_dir_path <- "/srv/duo/mbelitz/CentraliAmericana/"
+my_dir_path <- getwd()
 wd <- list()
 wd$R       <- file.path( my_dir_path, "R" )
 wd$fun     <- file.path( my_dir_path, "functions" )
@@ -12,6 +12,8 @@ wd$preds   <- file.path( my_dir_path, "ClimateOnly/" )
 wd$data    <- file.path( my_dir_path, "data" )
 wd$occs    <- file.path( wd$data, "BiologiaCentraliAmericanaGeoreferencedSpecies.csv")
 wd$figs    <- file.path( my_dir_path, "figs" )
+wd$ccFigs <- file.path(wd$figs, "coordClean")
+wd$CC <- file.path(my_dir_path, "data/CleanedCoords/")
 wd$out     <- file.path( my_dir_path, "out" )
 invisible({ lapply(wd, function(i) if( dir.exists(i) != 1 ) dir.create(i) ) })
 

@@ -70,7 +70,7 @@ sdm_pipeline <- function(x){
   aa_shp <- define_accessibleArea(species_df = species_df_raw, minBuff = 200e3,
                                   buff_prop = 0.80, projCRS = study_proj)
   
-  mod_vars <- rast("stackedClimate.tif")
+  mod_vars <- rast("climateStack_centraliAmericana.tif")
   # Clip environmental variable layers to the defined accessible area
   mymod_vars <- clip_variableLayers(rstack = mod_vars, accessibleArea = aa_shp)
   
@@ -103,7 +103,7 @@ spp_df <- species_df_raw
   print(">>>>>>>>> Evaluating tuning variables in model <<<<<<<<<")
   
   eval1 <- ENMeval::ENMevaluate(
-    occ = coordinates(species_df), env = predictors,
+    occ = coordinates(spp_df), env = predictors,
     method = "block", RMvalues = c(0.5, 1, 2, 3, 4),
     fc= c("L", "LQ", "H", "LQH", "LQHP", "LQHPT"),
     parallel = TRUE, numCores = 10, algorithm = 'maxent.jar',
@@ -113,7 +113,7 @@ spp_df <- species_df_raw
   #### Step 4: Create the output for the best performing model
   
   ### 4A. Prepare the output path and coordinates
-  bw <- species_df$bw[1] # make a speciesName string without a space for better saving
+  bw <- spp_df$bw[1] # make a speciesName string without a space for better saving
   bw <- str_replace(bw, " ", "_")
   
   resultDir <-  wd$out
@@ -132,7 +132,7 @@ spp_df <- species_df_raw
     dplyr::rename(x = 1, y = 2)
   
   save_SDM_results(ENMeval_output = eval1, AUCmin = 0.7, resultDir = wd$out,
-                   spp = bw, occ_df = sp_df2, species_df = species_df_raw)
+                   spp = bw, occ_df = sp_df2)
   
   ### 4C. Visualize the model
   ## Load in the rasters
@@ -309,12 +309,12 @@ spp_df <- species_df_raw
   
 }
 
-sdm_pipeline(2)
+sdm_pipeline(39)
 
 
 # looping through pipeline
 # looping through pipeline
-for(i in 3:155){
+for(i in 39:304){
   tryCatch(sdm_pipeline(x = i),
            error = function(e) print(paste(spp_list[i], "Error in Code Skipping for now!")))
 }  

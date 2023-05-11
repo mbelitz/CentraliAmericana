@@ -42,8 +42,8 @@ map_coord_clean <- function(dataframe, spp){
     geom_sf(world, mapping = aes(), fill = "grey95", color = "grey80") +
     geom_point(cs, mapping = aes(x = decimalLongitude, y = decimalLatitude),
                color = "#18806d") + 
-    coord_sf(xlim = c(min(cs$decimalLongitude) - lonRange, max(cs$decimalLongitude) + lonRange),
-             ylim = c(min(cs$decimalLatitude) - latRange, max(cs$decimalLatitude) + latRange)) +
+    coord_sf(xlim = c(min(cs$decimalLongitude) - 5, max(cs$decimalLongitude) + 5),
+             ylim = c(min(cs$decimalLatitude) - 5, max(cs$decimalLatitude) + 5)) +
     ggtitle("Uncleaned") + 
     theme_bw() +
     theme(
@@ -62,8 +62,8 @@ map_coord_clean <- function(dataframe, spp){
       dplyr::filter(cs2, .summary == "FALSE"), 
       mapping = aes(x = decimalLongitude, y = decimalLatitude),
       shape = 21, fill = "yellow", color = "#786213")  +
-    coord_sf(xlim = c(min(cs$decimalLongitude) - lonRange, max(cs$decimalLongitude) + lonRange),
-             ylim = c(min(cs$decimalLatitude) - latRange, max(cs$decimalLatitude) + latRange)) +
+    coord_sf(xlim = c(min(cs$decimalLongitude) - 5, max(cs$decimalLongitude) + 5),
+             ylim = c(min(cs$decimalLatitude) - 5, max(cs$decimalLatitude) + 5)) +
     labs(color = "Not flagged") +
     ggtitle("Cleaned") +
     theme_bw() +
@@ -88,8 +88,8 @@ quickPlot <- function(cs) {
     geom_sf(world, mapping = aes(), fill = "grey95", color = "grey80") +
     geom_point(cs, mapping = aes(x = decimalLongitude, y = decimalLatitude),
                color = "#18806d") + 
-    coord_sf(xlim = c(min(cs$decimalLongitude) - lonRange, max(cs$decimalLongitude) + lonRange),
-             ylim = c(min(cs$decimalLatitude) - latRange, max(cs$decimalLatitude) + latRange)) +
+    coord_sf(xlim = c(min(cs$decimalLongitude) - 5, max(cs$decimalLongitude) + 5),
+             ylim = c(min(cs$decimalLatitude) - 5, max(cs$decimalLatitude) + 5)) +
     ggtitle("Uncleaned") + 
     theme_bw() +
     theme(
